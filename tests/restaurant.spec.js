@@ -95,10 +95,10 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
     // ao array retornado em `objetoRetornado.consumption`.
     // ```
     // const objetoRetornado = createMenu(objetoQualquer);
-    // objetoRetornado.order("coxinha");
+    objetoRetornado.order('coxinha');
     // objetoRetornado.consumption // Retorno: ["coxinha"]
     // ```
-    expect(objetoRetornado.order('coxinha')).toEqual(objetoRetornado.consumption);
+    expect(objetoRetornado.consumption).toEqual(['coxinha']);
 
     // Agora faça o PASSO 3 no arquivo `src/restaurant.js`.
     // --------------------------------------------------------------------------------------
@@ -117,11 +117,12 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
 
     // TESTE 7: Verifique se a função `order` aceita que pedidos repetidos sejam acrescidos a `consumption`.
     // ```
-    // objetoRetornado.order('coxinha');
-    // objetoRetornado.order('agua');
-    // objetoRetornado.order('coxinha');
+    objetoRetornado.order('coxinha');
+    objetoRetornado.order('agua');
+    objetoRetornado.order('bala');
     // objetoRetornado.consumption // Retorno: ['coxinha', 'agua', 'coxinha']
     // ```
+    expect(objetoRetornado.consumption).toEqual(['coxinha', 'coxinha', 'agua', 'bala']);
 
     // Agora faça o TESTE 8 deste arquivo.
     // --------------------------------------------------------------------------------------
@@ -133,7 +134,16 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
     // objetoRetornado.order('coxinha');
     // objetoRetornado.pay() // Retorno: somaDosPreçosDosPedidos
     // ```
-  
+    const newMenu = createMenu({
+      food: { coxinha: 10.99, sanduiche: 20.99 },
+      drink: { agua: 1.99, cerveja: 15.99 },
+    });
+    const conta = (10.99 + 20.99 + 1.99 + 15.99) * 1.1;
+    newMenu.order('coxinha');
+    newMenu.order('sanduiche');
+    newMenu.order('agua');
+    newMenu.order('cerveja');
+    expect(newMenu.pay()).toEqual(conta);
     // Agora faça o PASSO 4 no arquivo `src/restaurant.js`.
   });
 });
